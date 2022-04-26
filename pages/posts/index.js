@@ -6,8 +6,8 @@ const Posts = ({posts}) => {
     <div>
         <h1>List of posts</h1>
         {posts.map((post) => (
-            <div>
-                <h1>{post.title}</h1>
+            <div className='border border-gray-300 shadow-md p-5'>
+                <h1 className='text-2xl'>{post.title}</h1>
                 <h3>
                     {post.author} - <small>{post.publisheDate}</small>{" "}
                 </h3>
