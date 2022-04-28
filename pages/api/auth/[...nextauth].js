@@ -27,6 +27,7 @@ export default NextAuth({
 
         //checking if user is on the database
         let user = await User.findOne({ email });
+
         if (!user) {
           return null;
         }
@@ -34,6 +35,8 @@ export default NextAuth({
         //checking if passwords match
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return null;
+
+        return user;
       },
     }),
   ],
@@ -49,13 +52,13 @@ export default NextAuth({
     session: ({ session, token }) => {
       if (session) {
         session.id = token.id;
-        token.firstName = user.firstName;
-        token.lastName = user.lasttName;
+        session.firstName = token.firstName;
+        session.lastName = token.lasttName;
       }
       return session;
     },
-    secret: "secret",
   },
+  secret: "secret",
   jwt: {
     secret: "ThisIsMySecret",
     encrypt: true,
